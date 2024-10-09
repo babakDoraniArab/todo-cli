@@ -15,8 +15,6 @@ type Assignee struct {
 
 type AssigneeList []Assignee
 
-// TODO create assignee
-
 var assignees AssigneeList
 
 func (assignees *AssigneeList) add(title string, email string) Assignee {
@@ -42,7 +40,6 @@ func (assignees *AssigneeList) add(title string, email string) Assignee {
 
 // TODO delete assignee
 
-// TODO validate assignee index
 func (assignees *AssigneeList) validateAssignee(title string, email string) (bool, error) {
 
 	var err error
