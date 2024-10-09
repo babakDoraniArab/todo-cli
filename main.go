@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	assignees.add("babak", "babak.dorani@gmail.com")
+	assignees.add("b", "babak.dorani@gmail.com")
 	assignees.add("babak2", "babak4.dorani@gmail.com")
 	assignees.add("babak3", "babak4.dorani@gmail.com")
 	for _, value := range assignees {

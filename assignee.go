@@ -20,18 +20,10 @@ type AssigneeList []Assignee
 var assignees AssigneeList
 
 func (assignees *AssigneeList) add(title string, email string) Assignee {
-	var err error
-	if len(email) < 6 {
-		err = errors.New("email length is too short")
 
-	}
-	if !strings.Contains(email, "@") {
-		err = errors.New("email is not valid")
-	}
-	if len(title) < 2 {
-		err = errors.New("name should be at least 2 character")
-	}
-	if err != nil {
+	validation, err := assignees.validateAssignee(title, email)
+
+	if !validation {
 		panic(err)
 	}
 	newAssignee := Assignee{
@@ -51,3 +43,21 @@ func (assignees *AssigneeList) add(title string, email string) Assignee {
 // TODO delete assignee
 
 // TODO validate assignee index
+func (assignees *AssigneeList) validateAssignee(title string, email string) (bool, error) {
+
+	var err error
+	if len(email) < 6 {
+		err = errors.New("email length is too short")
+
+	}
+	if !strings.Contains(email, "@") {
+		err = errors.New("email is not valid")
+	}
+	if len(title) < 2 {
+		err = errors.New("name should be at least 2 character")
+	}
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
