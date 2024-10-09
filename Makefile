@@ -1,2 +1,2 @@
 run:
-	go run main.go
+	go fmt && go mod tidy && go run .
