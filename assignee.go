@@ -14,8 +14,8 @@ type Assignee struct {
 }
 
 type AssigneeList []Assignee
-// TODO create assignee
 
+// TODO create assignee
 
 var assignees AssigneeList
 
