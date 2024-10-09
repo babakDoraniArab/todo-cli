@@ -1,22 +1,53 @@
 package main
 
-import "time"
+import (
+	"errors"
+	"strings"
+	"time"
+)
 
-type assignee struct {
-	name string
-	email string
+type Assignee struct {
+	name       string
+	email      string
 	created_at time.Time
 	updated_at time.Time
-
 }
 
+type AssigneeList []Assignee
 // TODO create assignee
 
 
-// TODO edit assignee 
+var assignees AssigneeList
 
+func (assignees *AssigneeList) add(title string, email string) Assignee {
+	var err error
+	if len(email) < 6 {
+		err = errors.New("email length is too short")
+
+	}
+	if !strings.Contains(email, "@") {
+		err = errors.New("email is not valid")
+	}
+	if len(title) < 2 {
+		err = errors.New("name should be at least 2 character")
+	}
+	if err != nil {
+		panic(err)
+	}
+	newAssignee := Assignee{
+		name:       title,
+		email:      email,
+		created_at: time.Now(),
+		updated_at: time.Now(),
+	}
+
+	*assignees = append(*assignees, newAssignee)
+
+	return newAssignee
+}
+
+// TODO edit assignee
 
 // TODO delete assignee
 
-
-// TODO validate assignee index 
+// TODO validate assignee index
