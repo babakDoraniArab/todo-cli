@@ -33,13 +33,7 @@ func (assignees *AssigneeList) showAll() {
 }
 // ***********************   Setter  **************
 
-func (assignees *AssigneeList) seedAssignees() {
-	
-	assignees.add("babak dorani", "babak.dorani@gmail.com")
-	assignees.add("babak do2000", "babak.do2000@gmail.com")
-	assignees.add("babak outlook", "babak.dorani@outlook.com")
 
-}
 
 func (assignees *AssigneeList) add(title string, email string) Assignee {
 
@@ -109,4 +103,13 @@ func (assignees *AssigneeList) validateAssignee(title string, email string) (boo
 		return false, err
 	}
 	return true, nil
+}
+// ********************** helper *********************** 
+
+func (assignees *AssigneeList) seedAssignees() {
+	
+	assignees.add("babak dorani", "babak.dorani@gmail.com")
+	assignees.add("babak do2000", "babak.do2000@gmail.com")
+	assignees.add("babak outlook", "babak.dorani@outlook.com")
+
 }
