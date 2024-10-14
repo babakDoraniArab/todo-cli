@@ -18,8 +18,8 @@ type AssigneeList []Assignee
 
 var assignees AssigneeList
 
-func (assignees AssigneeList) showAll() {
-	for index, value := range assignees {
+func (assignees *AssigneeList) showAll() {
+	for index, value := range *assignees {
 		fmt.Printf("id is = %d , assigne name is %s and his/her email is %s and created at %s and updated at %s\n\n",
 			index,
 			value.name,
@@ -28,6 +28,13 @@ func (assignees AssigneeList) showAll() {
 			value.updated_at.Format(time.RFC1123),
 		)
 	}
+
+}
+func (assignees *AssigneeList) seedAssignees() {
+	
+	assignees.add("babak dorani", "babak.dorani@gmail.com")
+	assignees.add("babak do2000", "babak.do2000@gmail.com")
+	assignees.add("babak outlook", "babak.dorani@outlook.com")
 
 }
 
