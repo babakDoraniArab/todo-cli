@@ -43,3 +43,12 @@ func TestValidateAssignee(t *testing.T) {
 	}
 
 }
+
+//TODO testDeleteAssignee
+
+//TODO testValidateAssigneesIndex
+
+
+//TODO testEditAssignee
+
+// TODO testShowAll
