@@ -17,6 +17,7 @@ type Assignee struct {
 type AssigneeList []Assignee
 
 var assignees AssigneeList
+// ***********************   Getter  **************
 
 func (assignees *AssigneeList) showAll() {
 	for index, value := range *assignees {
@@ -30,6 +31,8 @@ func (assignees *AssigneeList) showAll() {
 	}
 
 }
+// ***********************   Setter  **************
+
 func (assignees *AssigneeList) seedAssignees() {
 	
 	assignees.add("babak dorani", "babak.dorani@gmail.com")
