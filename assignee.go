@@ -17,6 +17,7 @@ type Assignee struct {
 type AssigneeList []Assignee
 
 var assignees AssigneeList
+
 // ***********************   Getter  **************
 
 func (assignees *AssigneeList) showAll() {
@@ -31,9 +32,13 @@ func (assignees *AssigneeList) showAll() {
 	}
 
 }
+func (assignees *AssigneeList) getAll() AssigneeList {
+	//TODO read from the file first
+
+	return *assignees
+}
+
 // ***********************   Setter  **************
-
-
 
 func (assignees *AssigneeList) add(title string, email string) Assignee {
 
@@ -54,7 +59,6 @@ func (assignees *AssigneeList) add(title string, email string) Assignee {
 	return newAssignee
 }
 
-// TODO edit assignee
 func (assignees *AssigneeList) editAssignee(index int, name string, email string) Assignee {
 	validation, err := assignees.validateAssigneesIndex(index)
 	if !validation {
@@ -71,6 +75,7 @@ func (assignees *AssigneeList) editAssignee(index int, name string, email string
 // TODO delete assignee
 func (assignees *AssigneeList) deleteAssignee(index int) {
 	*assignees = append((*assignees)[:index], (*assignees)[index+1:]...)
+	// TODO save to file
 	assignees.showAll()
 
 }
@@ -104,12 +109,14 @@ func (assignees *AssigneeList) validateAssignee(title string, email string) (boo
 	}
 	return true, nil
 }
-// ********************** helper *********************** 
+
+// ********************** helper ***********************
 
 func (assignees *AssigneeList) seedAssignees() {
-	
+	// TODO open file and
 	assignees.add("babak dorani", "babak.dorani@gmail.com")
 	assignees.add("babak do2000", "babak.do2000@gmail.com")
 	assignees.add("babak outlook", "babak.dorani@outlook.com")
+	// TODO save to file
 
 }
