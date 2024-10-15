@@ -2,9 +2,9 @@ package main
 
 func main() {
 	assignees.seedAssignees()
-	todos.seedtodos()
+	todos.Seedtodos()
 	// assignees.showAll()
 
-	todos.showAll()
+	todos.ShowAll()
 
 }

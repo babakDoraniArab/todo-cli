@@ -7,11 +7,11 @@ import (
 )
 
 type Todo struct {
-	title      string
-	assigneeID uint8
-	status     bool
-	created_at time.Time
-	updated_at time.Time
+	Title      string `json:"title"`
+	AssigneeID uint8   `json:"assigneeId"`
+	Status     bool   `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type TodoList []Todo
@@ -20,15 +20,15 @@ var todos TodoList
 
 // ***********************   Getter  **************
 
-func (todos *TodoList) showAll() {
+func (todos *TodoList) ShowAll() {
 	for index, value := range *todos {
 		fmt.Printf("id is = %d , todo title is %s and assignee Id is %d , status is %v and created at %s and updated at %s\n\n",
 			index,
-			value.title,
-			value.assigneeID,
-			value.status,
-			value.created_at.Format(time.RFC3339),
-			value.updated_at.Format(time.RFC1123),
+			value.Title,
+			value.AssigneeID,
+			value.Status,
+			value.CreatedAt.Format(time.RFC3339),
+			value.UpdatedAt.Format(time.RFC1123),
 		)
 	}
 
@@ -42,14 +42,14 @@ func (todos *TodoList) showAll() {
 
 // ***********************   Setter  **************
 
-func (todos *TodoList) add(title string, assigneeID uint8) Todo {
+func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 
 	newTodo := Todo{
-		title:      title,
-		assigneeID: assigneeID,
-		status:     false,
-		created_at: time.Now(),
-		updated_at: time.Now(),
+		Title:      title,
+		AssigneeID: assigneeID,
+		Status:     false,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	*todos = append(*todos, newTodo)
@@ -58,15 +58,15 @@ func (todos *TodoList) add(title string, assigneeID uint8) Todo {
 }
 
 // TODO edit Todo
-func (todos *TodoList) editTodo(index uint8, title string, assigneeID uint8, status bool) Todo {
+func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, status bool) Todo {
 	validation, err := todos.validateTodo(index, title, assigneeID)
 
 	if !validation {
 		panic(err)
 	}
-	(*todos)[index].title = title
-	(*todos)[index].assigneeID = assigneeID
-	(*todos)[index].updated_at = time.Now()
+	(*todos)[index].Title = title
+	(*todos)[index].AssigneeID = assigneeID
+	(*todos)[index].UpdatedAt = time.Now()
 
 	// 	//TODO save to file should call in here
 
@@ -74,9 +74,9 @@ func (todos *TodoList) editTodo(index uint8, title string, assigneeID uint8, sta
 }
 
 // // TODO delete Todo
-func (todos *TodoList) deleteTodo(index int) {
+func (todos *TodoList) DeleteTodo(index int) {
 	*todos = append((*todos)[:index], (*todos)[index+1:]...)
-	todos.showAll()
+	todos.ShowAll()
 
 }
 
@@ -101,8 +101,8 @@ func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8)
 	return true, nil
 }
 
-func (todos *TodoList) seedtodos() {
+func (todos *TodoList) Seedtodos() {
 
-	todos.add("task1", 0)
-	todos.add("task2for person2 ", 1)
+	todos.Add("task1", 0)
+	todos.Add("task2for person2 ", 1)
 }
