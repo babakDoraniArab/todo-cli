@@ -101,10 +101,8 @@ func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8)
 	return true, nil
 }
 
-// func (todos *TodoList) seedtodos() {
+func (todos *TodoList) seedtodos() {
 
-// 	todos.add("babak dorani", "babak.dorani@gmail.com")
-// 	todos.add("babak do2000", "babak.do2000@gmail.com")
-// 	todos.add("babak outlook", "babak.dorani@outlook.com")
-
-// }
+todos.add("task1", 0)
+todos.add("task2for person2 ", 1)
+}
