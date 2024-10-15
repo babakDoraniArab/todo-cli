@@ -12,13 +12,13 @@ func TestAdd(t *testing.T) {
 
 	newAssignee := assignees.add("babak", "babak@gmail.com")
 
-	if newAssignee.name != "babak" {
-		t.Errorf("name must be babak but it's not correct we got %s", newAssignee.name)
+	if newAssignee.Name != "babak" {
+		t.Errorf("name must be babak but it's not correct we got %s", newAssignee.Name)
 	}
-	if newAssignee.email != "babak@gmail.com" {
-		t.Errorf("email must be babak@gmail.com but it's not correct we got %s", newAssignee.name)
+	if newAssignee.Email != "babak@gmail.com" {
+		t.Errorf("email must be babak@gmail.com but it's not correct we got %s", newAssignee.Name)
 	}
-	if newAssignee.created_at.IsZero() || newAssignee.updated_at.IsZero() {
+	if newAssignee.CreatedAt.IsZero() || newAssignee.UpdatedAt.IsZero() {
 		t.Error("created_at or updated_at is empty string, please check it ")
 	}
 	if !slices.Contains(assignees, newAssignee) {

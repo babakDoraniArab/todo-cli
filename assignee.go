@@ -8,10 +8,10 @@ import (
 )
 
 type Assignee struct {
-	name       string
-	email      string
-	created_at time.Time
-	updated_at time.Time
+	Name       string `json:"name"`
+	Email      string  `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type AssigneeList []Assignee
@@ -24,10 +24,10 @@ func (assignees *AssigneeList) showAll() {
 	for index, value := range *assignees {
 		fmt.Printf("id is = %d , assigne name is %s and his/her email is %s and created at %s and updated at %s\n\n",
 			index,
-			value.name,
-			value.email,
-			value.created_at.Format(time.RFC3339),
-			value.updated_at.Format(time.RFC1123),
+			value.Name,
+			value.Email,
+			value.CreatedAt.Format(time.RFC3339),
+			value.UpdatedAt.Format(time.RFC1123),
 		)
 	}
 
@@ -40,18 +40,18 @@ func (assignees *AssigneeList) getAll() AssigneeList {
 
 // ***********************   Setter  **************
 
-func (assignees *AssigneeList) add(title string, email string) Assignee {
+func (assignees *AssigneeList) add(name string, email string) Assignee {
 
-	validation, err := assignees.validateAssignee(title, email)
+	validation, err := assignees.validateAssignee(name, email)
 
 	if !validation {
 		panic(err)
 	}
 	newAssignee := Assignee{
-		name:       title,
-		email:      email,
-		created_at: time.Now(),
-		updated_at: time.Now(),
+		Name:       name,
+		Email:      email,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	*assignees = append(*assignees, newAssignee)
@@ -64,8 +64,8 @@ func (assignees *AssigneeList) editAssignee(index int, name string, email string
 	if !validation {
 		panic(err)
 	}
-	(*assignees)[index].name = name
-	(*assignees)[index].email = email
+	(*assignees)[index].Name = name
+	(*assignees)[index].Email = email
 
 	//TODO save to file should call in here
 

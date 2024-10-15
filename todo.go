@@ -88,7 +88,7 @@ func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8)
 		err = errors.New("title length is too short")
 
 	}
-	if assigneeList[index].name == "" || assigneeList[index].email == "" {
+	if assigneeList[index].Name == "" || assigneeList[index].Email == "" {
 		err = errors.New("assignee is not correct")
 	}
 
@@ -103,6 +103,6 @@ func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8)
 
 func (todos *TodoList) seedtodos() {
 
-todos.add("task1", 0)
-todos.add("task2for person2 ", 1)
+	todos.add("task1", 0)
+	todos.add("task2for person2 ", 1)
 }
