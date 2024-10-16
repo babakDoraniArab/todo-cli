@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -23,8 +24,58 @@ func Init() {
 			panic("error creating new folder for .todoAppDir")
 		}
 	}
-	fmt.Printf(todoAppDir)
+	createTodoFile(filepath.Join(todoAppDir,"todoDB.json"))
+	createAssigneeFile(filepath.Join(todoAppDir,"assigneeDB.json"))
 }
+
+
+
+
+
+func createTodoFile(filepath string){
+	//let's check the folder first 
+	_, err := os.Stat(filepath)
+	if err !=nil && os.IsNotExist(err){
+		// so file is not here and we need to create it 
+		todoEmptyList := []Todo{}
+		// we need to use MarshalIndent because this is an empty json file so for prettified JSON format with indentation if I use Marshal it will create the compact mode 
+		file, _ :=json.MarshalIndent(todoEmptyList,"", " ")
+
+		// let's create the file 
+		err := os.WriteFile(filepath, file, 0755)
+		if err !=nil {
+			fmt.Printf("error creating file in %s address. %v\n",filepath,err)
+		}else{
+			fmt.Printf("file is created in this address %s\n",filepath)
+		}
+
+	}
+}
+
+
+
+
+func createAssigneeFile(filepath string){
+//let's check the folder first 
+_, err := os.Stat(filepath)
+if err !=nil && os.IsNotExist(err){
+	// so file is not here and we need to create it 
+	assigneeEmptyList := []Assignee{}
+	// we need to use MarshalIndent because this is an empty json file so for prettified JSON format with indentation if I use Marshal it will create the compact mode 
+	file, _ :=json.MarshalIndent(assigneeEmptyList,"", " ")
+
+	// let's create the file 
+	err := os.WriteFile(filepath, file, 0755)
+	if err !=nil {
+		fmt.Printf("error creating file in %s address. %v\n",filepath,err)
+	}else{
+		fmt.Printf("file is created in this address %s\n",filepath)
+	}
+
+}}
+
+
+
 //TODO load db.json
 
 //TODO save db.json
