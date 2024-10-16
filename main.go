@@ -1,6 +1,7 @@
 package main
 
 func main() {
+	// create database files in the ~/.todoApp/ filepath 
 	Init()
 	// assignees.seedAssignees()
 	// todos.Seedtodos()
@@ -8,4 +9,6 @@ func main() {
 
 	// todos.ShowAll()
 
+
+	//TODO flags
 }
