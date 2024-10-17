@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/babakDoraniArab/todo-cli/pkg/helper"
 	"time"
 )
 
@@ -44,8 +45,7 @@ func (todos *TodoList) ShowAll() {
 
 func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 
-//TODO check the assigneeDB is not empty 
-
+	//TODO check the assigneeDB is not empty
 
 	newTodo := Todo{
 		Title:      title,
@@ -64,24 +64,26 @@ func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 	return newTodo
 }
 
-// TODO edit Todo needs to check assigneeDB first to ensure it's not empty 
-func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, status bool) Todo {
+// TODO edit Todo needs to check assigneeDB first to ensure it's not empty
+func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, status bool) error {
+
+	helper.CheckErr(AssigneeDbCheck())
+	
 	validation, err := todos.validateTodo(index, title, assigneeID)
 
 	if !validation {
-		panic(err)
+		return fmt.Errorf("%v", err)
 	}
 	(*todos)[index].Title = title
 	(*todos)[index].AssigneeID = assigneeID
 	(*todos)[index].UpdatedAt = time.Now()
 
-	// 	//TODO save to file should call in here
 	err = SaveTasks(*todos)
 	if err != nil {
-		fmt.Errorf("todos seeding has error : %v", err)
+		return fmt.Errorf("todos seeding has error : %v", err)
 	}
 
-	return (*todos)[index]
+	return nil
 }
 
 // // TODO delete Todo

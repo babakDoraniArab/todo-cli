@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 )
 
-// TODO create a folder in ~/.todo address and create two empty json file called assignee.json and db.json
 var (
 	homeDir          string
 	AppDir           string = ".todoApp"
@@ -96,7 +95,6 @@ func LoadTasks() ([]Todo, error) {
 
 }
 
-// TODO save db.json
 func SaveTasks(tasks []Todo) error {
 
 	fileContent, err := json.MarshalIndent(tasks, "", " ")
@@ -111,4 +109,17 @@ func SaveTasks(tasks []Todo) error {
 	fmt.Println("tasks saved successfully")
 	return nil
 
+}
+
+func AssigneeDbCheck() error {
+
+	fileContent, err := os.ReadFile(AssigneeFileAddr)
+	if err != nil {
+		return fmt.Errorf("could not open the assignee db file: %v", err)
+	}
+	if string(fileContent) == "[]" {
+		return fmt.Errorf("Assignee DB is empty you need to create some assignee first ")
+
+	}
+	return nil
 }
