@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/babakDoraniArab/todo-cli/pkg/helper"
 )
 
 var (
@@ -98,15 +100,13 @@ func LoadTasks() ([]Todo, error) {
 func SaveTasks(tasks []Todo) error {
 
 	fileContent, err := json.MarshalIndent(tasks, "", " ")
+	helper.CheckErr(err, ("save task marshal has problem: "))
 
-	if err != nil {
-		return fmt.Errorf("save task marshal has problem : %v", err)
-	}
+
 	err = os.WriteFile(TodoFileAddr, fileContent, 0755)
-	if err != nil {
-		return fmt.Errorf("writing to file has problem: %v", err)
-	}
-	fmt.Println("tasks saved successfully")
+	helper.CheckErr(err, "writing to file has problem: ")
+
+	fmt.Println(helper.Green+"tasks saved successfully"+helper.Reset)
 	return nil
 
 }
@@ -114,9 +114,8 @@ func SaveTasks(tasks []Todo) error {
 func AssigneeDbCheck() error {
 
 	fileContent, err := os.ReadFile(AssigneeFileAddr)
-	if err != nil {
-		return fmt.Errorf("could not open the assignee db file: %v", err)
-	}
+	helper.CheckErr(err, "could not open the assignee db file: ")
+
 	if string(fileContent) == "[]" {
 		return fmt.Errorf("Assignee DB is empty you need to create some assignee first ")
 

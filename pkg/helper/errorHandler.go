@@ -1,11 +1,15 @@
 package helper
 
 import (
+	"errors"
 	"log"
 	"os"
 )
 
 
+func NewError(explanation string) error {
+    return errors.New(Red + explanation + Reset)
+}
 
 func CheckErr(err error, explanation ...string){
 	if err!= nil {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+
 	"fmt"
 	"github.com/babakDoraniArab/todo-cli/pkg/helper"
 	"time"
@@ -9,7 +9,7 @@ import (
 
 type Todo struct {
 	Title      string    `json:"title"`
-	AssigneeID uint8     `json:"assigneeId"`
+	AssigneeID int     `json:"assigneeId"`
 	Status     bool      `json:"status"`
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
@@ -43,10 +43,11 @@ func (todos *TodoList) ShowAll() {
 
 // ***********************   Setter  **************
 
-func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
+func (todos *TodoList) Add(title string, assigneeID int) Todo {
 
-	//TODO check the assigneeDB is not empty
-
+	
+	helper.CheckErr(AssigneeDbCheck())
+	helper.CheckErr(todos.validateTodo(title, assigneeID))
 	newTodo := Todo{
 		Title:      title,
 		AssigneeID: assigneeID,
@@ -56,84 +57,80 @@ func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 	}
 
 	*todos = append(*todos, newTodo)
-	err := SaveTasks(*todos)
-	if err != nil {
-		fmt.Errorf("todos seeding has error : %v", err)
-	}
+	helper.CheckErr(SaveTasks(*todos),"todos saving has error when I try to add")
 
 	return newTodo
 }
 
-// TODO edit Todo needs to check assigneeDB first to ensure it's not empty
-func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, status bool) error {
+
+func (todos *TodoList) EditTodo(index int, title string, assigneeID int, status bool) error {
 
 	helper.CheckErr(AssigneeDbCheck())
+	helper.CheckErr(todos.validateTodo( title, assigneeID, index))
 	
-	validation, err := todos.validateTodo(index, title, assigneeID)
-
-	if !validation {
-		return fmt.Errorf("%v", err)
-	}
+	
 	(*todos)[index].Title = title
 	(*todos)[index].AssigneeID = assigneeID
 	(*todos)[index].UpdatedAt = time.Now()
 
-	err = SaveTasks(*todos)
-	if err != nil {
-		return fmt.Errorf("todos seeding has error : %v", err)
-	}
+	
+
+	helper.CheckErr(SaveTasks(*todos),"todos saving has error when I try to edit")
 
 	return nil
 }
 
-// // TODO delete Todo
+
 func (todos *TodoList) DeleteTodo(index int) {
 	*todos = append((*todos)[:index], (*todos)[index+1:]...)
-	err := SaveTasks(*todos)
-	if err != nil {
-		fmt.Errorf("todos seeding has error : %v", err)
-	}
+	helper.CheckErr(SaveTasks(*todos),"todos saving has error")
 	todos.ShowAll()
 
 }
 
-func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8) (bool, error) {
+func (todos *TodoList) validateTodo( title string, assigneeID int, index ...int) error {
 	assigneeList := assignees.getAll()
 	var err error
 
 	if len(title) < 5 {
-		err = errors.New("title length is too short")
+	
+		err = helper.NewError("title length is too short")
 
 	}
-	if assigneeList[index].Name == "" || assigneeList[index].Email == "" {
-		err = errors.New("assignee is not correct")
+	if assigneeID <0 || assigneeList[assigneeID].Name == "" || assigneeList[assigneeID].Email == "" {
+		
+		err = helper.NewError("assignee ID is not correct")
 	}
 
 	if len(title) < 2 {
-		err = errors.New("name should be at least 2 character")
+		
+		err = helper.NewError("name should be at least 2 character")
 	}
+
+	if len(index)>0 &&  index[0] <0 {
+		err = helper.NewError("the todo list id you have selected is not correct ")
+	}
+
+
+
 	if err != nil {
-		return false, err
+		return err
 	}
-	return true, nil
+	return nil
 }
 
 func (todos *TodoList) Seedtodos() {
 
 	todos.Add("task1", 0)
 	todos.Add("task2 for person2 ", 1)
-	err := SaveTasks(*todos)
-	if err != nil {
-		fmt.Errorf("todos seeding has error : %v", err)
-	}
+	helper.CheckErr(SaveTasks(*todos),"todos seeding has error")
+
 }
 
 func (todos *TodoList) LoadFromFile() error {
 
 	loaded_from_file, err := LoadTasks()
-	if err != nil {
-		return err
-	}
+	helper.CheckErr(err,"could not load the files from database")
 	*todos = loaded_from_file
 	return nil
 }
