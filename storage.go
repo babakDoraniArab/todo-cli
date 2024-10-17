@@ -80,9 +80,7 @@ func createAssigneeFile(filepath string) {
 	}
 }
 
-//TODO load db.json
-
-func LoadTask() ([]Todo, error) {
+func LoadTasks() ([]Todo, error) {
 	fileContent, err := os.ReadFile(TodoFileAddr)
 	if err != nil {
 

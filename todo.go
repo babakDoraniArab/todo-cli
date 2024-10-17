@@ -44,6 +44,9 @@ func (todos *TodoList) ShowAll() {
 
 func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 
+//TODO check the assigneeDB is not empty 
+
+
 	newTodo := Todo{
 		Title:      title,
 		AssigneeID: assigneeID,
@@ -53,6 +56,10 @@ func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 	}
 
 	*todos = append(*todos, newTodo)
+	err := SaveTasks(*todos)
+	if err != nil {
+		fmt.Errorf("todos seeding has error : %v", err)
+	}
 
 	return newTodo
 }
@@ -69,6 +76,10 @@ func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, sta
 	(*todos)[index].UpdatedAt = time.Now()
 
 	// 	//TODO save to file should call in here
+	err = SaveTasks(*todos)
+	if err != nil {
+		fmt.Errorf("todos seeding has error : %v", err)
+	}
 
 	return (*todos)[index]
 }
@@ -76,6 +87,10 @@ func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, sta
 // // TODO delete Todo
 func (todos *TodoList) DeleteTodo(index int) {
 	*todos = append((*todos)[:index], (*todos)[index+1:]...)
+	err := SaveTasks(*todos)
+	if err != nil {
+		fmt.Errorf("todos seeding has error : %v", err)
+	}
 	todos.ShowAll()
 
 }
@@ -104,5 +119,19 @@ func (todos *TodoList) validateTodo(index uint8, title string, assigneeID uint8)
 func (todos *TodoList) Seedtodos() {
 
 	todos.Add("task1", 0)
-	todos.Add("task2for person2 ", 1)
+	todos.Add("task2 for person2 ", 1)
+	err := SaveTasks(*todos)
+	if err != nil {
+		fmt.Errorf("todos seeding has error : %v", err)
+	}
+}
+
+func (todos *TodoList) LoadFromFile() error {
+
+	loaded_from_file, err := LoadTasks()
+	if err != nil {
+		return err
+	}
+	*todos = loaded_from_file
+	return nil
 }
