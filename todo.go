@@ -64,7 +64,7 @@ func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 	return newTodo
 }
 
-// TODO edit Todo
+// TODO edit Todo needs to check assigneeDB first to ensure it's not empty 
 func (todos *TodoList) EditTodo(index uint8, title string, assigneeID uint8, status bool) Todo {
 	validation, err := todos.validateTodo(index, title, assigneeID)
 
