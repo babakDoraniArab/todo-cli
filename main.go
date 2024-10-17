@@ -9,7 +9,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	assignees.seedAssignees()
+	//assignees.seedAssignees()
 	// todos.Seedtodos()
 	// todos.ShowAll()
 	// todos.Add("this is test task",1)
