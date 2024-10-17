@@ -8,8 +8,8 @@ import (
 )
 
 type Assignee struct {
-	Name       string `json:"name"`
-	Email      string  `json:"email"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -48,8 +48,8 @@ func (assignees *AssigneeList) add(name string, email string) Assignee {
 		panic(err)
 	}
 	newAssignee := Assignee{
-		Name:       name,
-		Email:      email,
+		Name:      name,
+		Email:     email,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}

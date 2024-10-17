@@ -7,11 +7,11 @@ import (
 )
 
 type Todo struct {
-	Title      string `json:"title"`
-	AssigneeID uint8   `json:"assigneeId"`
-	Status     bool   `json:"status"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Title      string    `json:"title"`
+	AssigneeID uint8     `json:"assigneeId"`
+	Status     bool      `json:"status"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 type TodoList []Todo
@@ -48,8 +48,8 @@ func (todos *TodoList) Add(title string, assigneeID uint8) Todo {
 		Title:      title,
 		AssigneeID: assigneeID,
 		Status:     false,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
 	}
 
 	*todos = append(*todos, newTodo)

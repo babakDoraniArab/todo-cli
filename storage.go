@@ -85,14 +85,14 @@ func createAssigneeFile(filepath string) {
 func LoadTask() ([]Todo, error) {
 	fileContent, err := os.ReadFile(TodoFileAddr)
 	if err != nil {
-		
-		return nil, fmt.Errorf("file could not be opened %v",err)
+
+		return nil, fmt.Errorf("file could not be opened %v", err)
 	}
 
 	var tasks []Todo
 	err = json.Unmarshal(fileContent, &tasks)
 	if err != nil {
-		return nil, fmt.Errorf("unmarshal has problem: %v",err)
+		return nil, fmt.Errorf("unmarshal has problem: %v", err)
 	}
 	return tasks, nil
 
@@ -104,11 +104,11 @@ func SaveTasks(tasks []Todo) error {
 	fileContent, err := json.MarshalIndent(tasks, "", " ")
 
 	if err != nil {
-		return fmt.Errorf("save task marshal has problem : %v", err) 
+		return fmt.Errorf("save task marshal has problem : %v", err)
 	}
 	err = os.WriteFile(TodoFileAddr, fileContent, 0755)
 	if err != nil {
-		return fmt.Errorf("writing to file has problem: %v",err)
+		return fmt.Errorf("writing to file has problem: %v", err)
 	}
 	fmt.Println("tasks saved successfully")
 	return nil
