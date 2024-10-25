@@ -1,7 +1,8 @@
-package application
+package todo
 
 import (
 	"fmt"
+	"github.com/babakDoraniArab/todo-cli/application/assignee"
 	"time"
 
 	"github.com/babakDoraniArab/todo-cli/domain"
@@ -9,14 +10,16 @@ import (
 )
 
 type TodoService struct {
-	Storage TodoStorage
-	AssigneeStorage  AssigneeStorage 
+	Storage         TodoStorage
+	AssigneeStorage assignee.AssigneeStorage
 }
+
 //************************ constructor************
 
-func NewTodoService(storage TodoStorage, assigneeStorage AssigneeStorage)(*TodoService){
-	return &TodoService{Storage: storage, AssigneeStorage:assigneeStorage}
+func NewTodoService(storage TodoStorage, assigneeStorage assignee.AssigneeStorage) *TodoService {
+	return &TodoService{Storage: storage, AssigneeStorage: assigneeStorage}
 }
+
 // ***********************   Getter  **************
 
 func (t *TodoService) ShowAll() {

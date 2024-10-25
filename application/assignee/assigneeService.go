@@ -1,9 +1,7 @@
-package application
+package assignee
 
 import (
-
 	"fmt"
-	
 	"time"
 
 	"github.com/babakDoraniArab/todo-cli/domain"
@@ -18,7 +16,7 @@ type AssigneeService struct {
 
 func (s *AssigneeService) ShowAll() error {
 	assignees, err := s.Storage.Load()
-	helper.CheckErr(err,"could not load assignee")
+	helper.CheckErr(err, "could not load assignee")
 	for index, value := range assignees {
 		fmt.Printf("id is = %d , assigne name is %s and his/her email is %s and created at %s and updated at %s\n\n",
 			index,
@@ -31,24 +29,22 @@ func (s *AssigneeService) ShowAll() error {
 	return nil
 
 }
-func (s *AssigneeService) GetAll() (domain.AssigneeList,error) {
+func (s *AssigneeService) GetAll() (domain.AssigneeList, error) {
 	assignees, err := s.Storage.Load()
-	helper.CheckErr(err,"could not load assignee")
+	helper.CheckErr(err, "could not load assignee")
 
-	return assignees,nil
+	return assignees, nil
 }
 
 // ***********************   Setter  **************
 
-func (s *AssigneeService) Add(name string, email string) (domain.Assignee,error) {
+func (s *AssigneeService) Add(name string, email string) (domain.Assignee, error) {
 
 	_, err := domain.ValidateAssignee(name, email)
-	helper.CheckErr(err,"validation error: ")
-
-
+	helper.CheckErr(err, "validation error: ")
 
 	assignees, err := s.Storage.Load()
-	helper.CheckErr(err,"could not load assignee")
+	helper.CheckErr(err, "could not load assignee")
 
 	newAssignee := domain.Assignee{
 		Name:      name,
@@ -57,55 +53,49 @@ func (s *AssigneeService) Add(name string, email string) (domain.Assignee,error)
 		UpdatedAt: time.Now(),
 	}
 
-
-
 	assignees = append(assignees, newAssignee)
-	err= s.Storage.Save(assignees)
-	helper.CheckErr(err,"could not save assignee")
+	err = s.Storage.Save(assignees)
+	helper.CheckErr(err, "could not save assignee")
 
-	return newAssignee,nil
+	return newAssignee, nil
 }
 
 func (s *AssigneeService) EditAssignee(index int, name string, email string) domain.Assignee {
-	
+
 	assignees, err := s.Storage.Load()
-	helper.CheckErr(err,"could not load assignee")
+	helper.CheckErr(err, "could not load assignee")
 
 	_, err = domain.ValidateAssigneesIndex(index, assignees)
-	helper.CheckErr(err,"validation  Index error: ")
+	helper.CheckErr(err, "validation  Index error: ")
 
 	(assignees)[index].Name = name
 	(assignees)[index].Email = email
 
-
-
-	err= s.Storage.Save(assignees)
-	helper.CheckErr(err,"could not save assignee")
+	err = s.Storage.Save(assignees)
+	helper.CheckErr(err, "could not save assignee")
 
 	return (assignees)[index]
 }
 
+func (s *AssigneeService) DeleteAssignee(index int) domain.AssigneeList {
 
-func (s *AssigneeService) DeleteAssignee(index int) domain.AssigneeList{
-		
 	assignees, err := s.Storage.Load()
-	helper.CheckErr(err,"could not load assignee")
+	helper.CheckErr(err, "could not load assignee")
 
 	assignees = append((assignees)[:index], (assignees)[index+1:]...)
 
-	err= s.Storage.Save(assignees)
-	helper.CheckErr(err,"could not save assignee")
+	err = s.Storage.Save(assignees)
+	helper.CheckErr(err, "could not save assignee")
 	return assignees
 
 }
 
 // ********************** helper ***********************
 
-func (s *AssigneeService) SeedAssignees()  {
+func (s *AssigneeService) SeedAssignees() {
 
 	s.Add("babak dorani", "babak.dorani@gmail.com")
 	s.Add("babak do2000", "babak.do2000@gmail.com")
 	s.Add("babak outlook", "babak.dorani@outlook.com")
 
-	
 }
