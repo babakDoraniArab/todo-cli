@@ -9,20 +9,29 @@ on:
       - '**'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: go build .
 
   test:
-    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-#      - run: go test ./... -v      //I will addd the test later
+      - name: checking out the code
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+      - name: Install dependencies
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+      - name: Run go vet for linting
+        run: go vet ./...
+      - name: go staticcheck for code analyse
+        run: staticcheck ./...
 
-  release:
+#          - name: go test
+  #         run: go test ./... -v      //I will addd the test later
+#            env:
+#              CI: true
+
+  build_and_release:
     needs: test
     runs-on: ubuntu-latest
     permissions:
@@ -32,6 +41,7 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@master
+      - run: go build .
       - uses: go-semantic-release/action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
