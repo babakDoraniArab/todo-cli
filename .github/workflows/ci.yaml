@@ -47,7 +47,17 @@ jobs:
          go-version: '1.22'
       - name: build
         run: go build .
-      - uses: go-semantic-release/action@master
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+         node-version: "lts/*"
+      - name: Install dependencies
+        run: npm install
+      - name: Release
+        run: cp .github/.releaserc.json .
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          DEBUG: semantic-release:*
 
+        run: npx semantic-release
