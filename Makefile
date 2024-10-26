@@ -9,3 +9,6 @@ test-cover:
 
 check:
 	go fmt && go vet ./... && staticcheck ./...
+
+ci:
+	act -s GITHUB_TOKEN="$(gh auth token)" -r
