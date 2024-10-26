@@ -6,3 +6,6 @@ test:
 
 test-cover:
 	go tool cover -html=coverage.out
+
+check:
+	go fmt && go vet ./... && staticcheck ./...
