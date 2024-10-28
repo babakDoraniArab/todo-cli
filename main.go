@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/babakDoraniArab/todo-cli/application"
 	"github.com/babakDoraniArab/todo-cli/pkg/helper"
+	"github.com/babakDoraniArab/todo-cli/presentation/cli"
 )
 
 func main() {
@@ -11,9 +12,12 @@ func main() {
 
 	helper.CheckErr(err, "could not setup application")
 
-	app.AssigneeService.SeedAssignees()
-	app.AssigneeService.ShowAll()
-	app.TodoService.Seedtodos()
-	app.TodoService.ShowAll()
+	cliService := cli.NewCliService(app.TodoService, app.AssigneeService)
+	cli.Execute(cliService)
+
+	//app.AssigneeService.SeedAssignees()
+	//app.AssigneeService.ShowAll()
+	//app.TodoService.Seedtodos()
+	//app.TodoService.ShowAll()
 
 }

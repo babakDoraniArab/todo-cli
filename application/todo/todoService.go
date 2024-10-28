@@ -22,7 +22,7 @@ func NewTodoService(storage TodoStorage, assigneeStorage assignee.AssigneeStorag
 
 // ***********************   Getter  **************
 
-func (t *TodoService) ShowAll() {
+func (t *TodoService) ShowAllTodo() {
 	todos, err := t.Storage.Load()
 	helper.CheckErr(err, "could not load the todos from file")
 	for index, value := range todos {
@@ -40,7 +40,7 @@ func (t *TodoService) ShowAll() {
 
 // ***********************   Setter  **************
 
-func (t *TodoService) Add(title string, assigneeID int) domain.Todo {
+func (t *TodoService) AddTodo(title string, assigneeID int) error {
 
 	// helper.CheckErr(AssigneeDbCheck())
 	todos, err := t.Storage.Load()
@@ -59,7 +59,7 @@ func (t *TodoService) Add(title string, assigneeID int) domain.Todo {
 	err = t.Storage.Save(todos)
 	helper.CheckErr(err, "todos saving has error when I try to add")
 
-	return newTodo
+	return nil
 }
 
 func (t *TodoService) EditTodo(index int, title string, assigneeID int, status bool) error {
@@ -89,10 +89,10 @@ func (t *TodoService) DeleteTodo(index int) error {
 
 }
 
-func (t *TodoService) Seedtodos() {
+func (t *TodoService) SeedTodos() {
 
-	t.Add("task1", 0)
-	t.Add("task2 for person2 ", 1)
+	t.AddTodo("task1", 0)
+	t.AddTodo("task2 for person2 ", 1)
 
 }
 
