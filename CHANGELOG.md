@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/babakDoraniArab/todo-cli/compare/v2.3.0...v2.3.1) (2024-11-01)
+
+
+### Bug Fixes
+
+* **ci:** add space to test ([a8a31a8](https://github.com/babakDoraniArab/todo-cli/commit/a8a31a8f5ae552af865ce22b6059b591783da683))
+
 # [2.3.0](https://github.com/babakDoraniArab/todo-cli/compare/v2.2.0...v2.3.0) (2024-11-01)
 
 
