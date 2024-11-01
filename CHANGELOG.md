@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/babakDoraniArab/todo-cli/compare/v2.2.0...v2.3.0) (2024-11-01)
+
+
+### Features
+
+* **flag:** cli part one is completed ([7e0ba0d](https://github.com/babakDoraniArab/todo-cli/commit/7e0ba0d8bb83806d98c71491345cfe2644c33721))
+
 # [2.2.0](https://github.com/babakDoraniArab/todo-cli/compare/v2.1.2...v2.2.0) (2024-10-26)
 
 
