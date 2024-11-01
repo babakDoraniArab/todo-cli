@@ -26,10 +26,10 @@ jobs:
       - name: go staticcheck for code analyse
         run: staticcheck ./...
 
-#          - name: go test
-#         run: go test ./... -v      //I will addd the test later
-#            env:
-#              CI: true
+#      - name: go test
+#        run: go test ./... -v      //I will addd the test later
+#        env:
+#          CI: true
 
   build_and_release:
     needs: test
@@ -61,3 +61,4 @@ jobs:
 #          DEBUG: semantic-release:*
 
         run: npx semantic-release
+
