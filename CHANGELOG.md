@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/babakDoraniArab/todo-cli/compare/v2.3.2...v2.3.3) (2024-11-07)
+
+
+### Bug Fixes
+
+* **main:** do some cleanup ([2e00bfe](https://github.com/babakDoraniArab/todo-cli/commit/2e00bfef85e0974b50d2048df36bb4b7ae1699b2))
+
 ## [2.3.2](https://github.com/babakDoraniArab/todo-cli/compare/v2.3.1...v2.3.2) (2024-11-01)
 
 
