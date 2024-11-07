@@ -14,10 +14,4 @@ func main() {
 
 	cliService := cli.NewCliService(app.TodoService, app.AssigneeService)
 	cli.Execute(cliService)
-
-	//app.AssigneeService.SeedAssignees()
-	//app.AssigneeService.ShowAll()
-	//app.TodoService.Seedtodos()
-	//app.TodoService.ShowAll()
-
 }
