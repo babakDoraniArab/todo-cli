@@ -15,12 +15,6 @@ type AssigneeStorage struct {
 	filepath string
 }
 
-func InitAssigneeStorage() (*AssigneeStorage, error) {
-	fileAddr, err := Initialization(AssigneeFileName, []domain.Assignee{})
-	
-	helper.CheckErr(err,"could not initialize Assignee storage")
-	return &AssigneeStorage{filepath: fileAddr}, nil
-}
 
 func (assigneeStorage *AssigneeStorage) Save(assigneeList domain.AssigneeList) error {
 
@@ -43,3 +37,19 @@ func (assigneeStorage *AssigneeStorage) Load() (domain.AssigneeList,error ){
 	return todo,nil
 
 }
+
+
+
+
+
+
+
+
+
+func InitAssigneeStorage() (*AssigneeStorage, error) {
+	fileAddr, err := Initialization(AssigneeFileName, []domain.Assignee{})
+	
+	helper.CheckErr(err,"could not initialize Assignee storage")
+	return &AssigneeStorage{filepath: fileAddr}, nil
+}
+
