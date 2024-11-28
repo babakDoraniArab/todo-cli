@@ -18,13 +18,6 @@ type TodoStorage struct {
 	filepath string
 }
 
-func  InitTodoStorage() (*TodoStorage,error) {
-	storageAddr, err :=  Initialization(TodoFileName, []domain.Todo{})
-	helper.CheckErr(err,"could not initialize Todo storage")
-	
-	return &TodoStorage{filepath: storageAddr} ,nil
-}
-
 func (todoStorage *TodoStorage) Save(todoList domain.TodoList) error {
 
 	file, _ := json.MarshalIndent(todoList, "", " ")
@@ -46,3 +39,17 @@ func (todoStorage *TodoStorage) Load() (domain.TodoList,error) {
 	return todo, nil
 
 }
+
+
+
+
+
+
+
+func  InitTodoStorage() (*TodoStorage,error) {
+	storageAddr, err :=  Initialization(TodoFileName, []domain.Todo{})
+	helper.CheckErr(err,"could not initialize Todo storage")
+	
+	return &TodoStorage{filepath: storageAddr} ,nil
+}
+
