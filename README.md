@@ -20,3 +20,7 @@ to the `~/.actrc`
 then you can run `act -l` to see the acts and also `act -j test -r`
 
 test is the name of one of stages in the ci.yaml I have in this repo and -r means it will not remove the docker after the the test job  and will help you to run the CI faster next time 
+
+```
+act -s GITHUB_TOKEN="github token " --reuse
+````
